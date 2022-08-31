@@ -1,0 +1,2 @@
+ALTER TABLE `report`.`sys_user`
+    MODIFY COLUMN `id` int NOT NULL AUTO_INCREMENT FIRST;

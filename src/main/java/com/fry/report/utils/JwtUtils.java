@@ -1,0 +1,128 @@
+package com.fry.report.utils;
+
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.Data;
+import org.springframework.stereotype.Component;
+
+import javax.crypto.spec.SecretKeySpec;
+import javax.xml.bind.DatatypeConverter;
+import java.security.Key;
+import java.util.Base64;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * @author: QTX
+ * @Since: 2022/8/30
+ */
+@Data
+@Component
+public class JwtUtils {
+    /**
+     * 存储登录用户token
+     */
+    public final Map<String,String> TOKEN = new HashMap<>(20);
+
+    /** 密钥 */
+    private String secret = "d1dd69e10689430593b59c87772aaa83";
+
+    /** 超时时间 用于相加过期时间  s为单位   1天(单位:s)=5184000 */
+    private long expire = 360000;
+
+    private String header = "token";
+    /** 签发者 */
+    private String issuer = "qtx";
+
+
+    /**
+     * 生成 Token
+     */
+    public String generateToken(String subject) {
+        //Create the Signature SecretKey
+        final SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
+        final byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(
+                Base64.getEncoder().encodeToString(getSecret().getBytes()));
+        final Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
+
+        Map<String, Object> headerMap = new HashMap<>(10);
+        headerMap.put("alg", "HS256");
+        headerMap.put("typ", "JWT");
+        Date nowDate = new Date();
+        //过期时间
+        Date expireDate = new Date(nowDate.getTime() + expire * 1000);
+        return Jwts.builder().setHeaderParams(headerMap).setSubject(subject).setIssuedAt(nowDate)
+                //设置token过期时间
+                .setExpiration(expireDate).signWith(SignatureAlgorithm.HS256, signingKey)
+                //设置签发人信息
+                .setIssuer(getIssuer())
+                //设置签发时间
+                .setIssuedAt(nowDate).compact();
+    }
+
+    /**
+     * 解析token
+     *
+     * @param token token
+     * @return
+     */
+    public Claims parseToken(String token) {
+        final byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(
+                Base64.getEncoder().encodeToString(getSecret().getBytes()));
+        return Jwts.parser().setSigningKey(apiKeySecretBytes).parseClaimsJws(token).getBody();
+    }
+
+    /**
+     * 从令牌中获取用户名
+     *
+     * @param token
+     * @return
+     */
+    public String getInfoFromToken(String token) {
+        String username;
+        try {
+            Claims claims = parseToken(token);
+            username = claims.getSubject();
+        } catch (Exception e) {
+            username = null;
+        }
+        return username;
+    }
+
+    /**
+     * 判断令牌是否过期
+     *
+     * @param token
+     * @return
+     */
+    public Boolean isTokenExpired(String token) {
+        try {
+            Claims claims = parseToken(token);
+            Date expiration = claims.getExpiration();
+            return expiration.before(new Date());
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    /**
+     * 刷新令牌
+     *
+     * @param token
+     * @return
+     */
+    public String refreshToken(String token) {
+        String refreshedToken;
+        try {
+            Claims claims = parseToken(token);
+            claims.put("created", new Date());
+            refreshedToken = generateToken(claims.getSubject());
+        } catch (Exception e) {
+            refreshedToken = null;
+        }
+        return refreshedToken;
+    }
+}

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fry.report.mapper.InvoiceRecordsMapper">
+
+    <select id="selectPageNew" resultType="com.fry.report.vo.InvoiceRecordsVo">
+        select id,
+               ticket_code,
+               ticket_number,
+               check_code,
+               billing_date,
+               money,
+               reimbursement_person,
+               process_number,
+               remark,
+               create_by
+        from invoice_records ${ew.customSqlSegment}
+    </select>
+</mapper>

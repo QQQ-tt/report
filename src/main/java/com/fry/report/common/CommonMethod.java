@@ -2,7 +2,6 @@ package com.fry.report.common;
 
 import com.alibaba.fastjson.JSONArray;
 import com.fry.report.common.enums.DataEnums;
-import com.sun.istack.internal.NotNull;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -23,7 +22,7 @@ public class CommonMethod {
      * @param dataEnums 错误信息
      * @throws IOException
      */
-    public static void failed(@NotNull HttpServletResponse response, DataEnums dataEnums) throws IOException {
+    public static void failed(HttpServletResponse response, DataEnums dataEnums) throws IOException {
         response.setCharacterEncoding("utf-8");
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         //设置响应状态码

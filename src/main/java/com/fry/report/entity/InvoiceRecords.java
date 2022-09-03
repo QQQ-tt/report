@@ -26,7 +26,6 @@ import lombok.Setter;
 @ContentFontStyle(fontHeightInPoints = 12)
 public class InvoiceRecords extends BaseEntity {
 
-
     /**
      * 票据代码
      */

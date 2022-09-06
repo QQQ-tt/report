@@ -8,6 +8,7 @@ import com.fry.report.entity.InvoiceRecords;
 import com.fry.report.service.impl.InvoiceRecordsServiceImpl;
 import com.fry.report.vo.InvoiceRecordsVo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -37,6 +38,7 @@ public class InvoiceRecordsController {
         return ResultObject.success(invoiceRecordsService.saveOrUpdateNew(info));
     }
 
+    @PreAuthorize("hasAnyAuthority('role')")
     @DeleteMapping("/remove/{id}")
     public ResultObject<Boolean> remove(@PathVariable Long id) {
         return ResultObject.success(invoiceRecordsService.removeById(id));

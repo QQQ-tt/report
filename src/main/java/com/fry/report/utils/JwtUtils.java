@@ -1,6 +1,7 @@
 package com.fry.report.utils;
 
 
+import com.fry.report.common.pojo.Token;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -25,7 +26,7 @@ public class JwtUtils {
     /**
      * 存储登录用户token
      */
-    public final Map<String,String> TOKEN = new HashMap<>(20);
+    public final Map<String, Token> TOKEN = new HashMap<>(20);
 
     /** 密钥 */
     private String secret = "d1dd69e10689430593b59c87772aaa83";

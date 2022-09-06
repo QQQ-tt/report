@@ -95,7 +95,7 @@ public class ExcelTransfer<T> {
      * @param sheet    表名
      * @param aClass   实体类
      */
-    public void exportExcel(HttpServletResponse response, List<T> list, String name, String sheet, Class<?> aClass) throws ClassNotFoundException {
+    public void exportExcel(HttpServletResponse response, List<T> list, String name, String sheet, Class<?> aClass) {
         extracted(response, list, name, sheet, aClass);
     }
 

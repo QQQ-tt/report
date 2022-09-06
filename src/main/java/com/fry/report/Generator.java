@@ -3,7 +3,7 @@ package com.fry.report;
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
 import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
 import com.baomidou.mybatisplus.generator.config.OutputFile;
-import com.fry.report.common.BaseEntity;
+import com.fry.report.common.pojo.BaseEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.Arrays;

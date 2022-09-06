@@ -52,8 +52,8 @@ public class InvoiceRecordsServiceImpl extends ServiceImpl<InvoiceRecordsMapper,
     public boolean saveOrUpdateNew(InvoiceRecords info) throws DateException {
         boolean flag;
         try {
-             flag = saveOrUpdate(info);
-        }catch (Exception e){
+            flag = saveOrUpdate(info);
+        } catch (Exception e) {
             throw new DateException(DataEnums.DATA_INSERT_FAIL);
         }
         return flag;
@@ -61,6 +61,6 @@ public class InvoiceRecordsServiceImpl extends ServiceImpl<InvoiceRecordsMapper,
 
     @Override
     public void exportExcel(HttpServletResponse response) throws ClassNotFoundException {
-        excelTransfer.exportExcel(response,list(),"发票记录表","sheet",this);
+        excelTransfer.exportExcel(response, list(), "发票记录表", "sheet", this);
     }
 }

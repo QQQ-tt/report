@@ -1,6 +1,8 @@
 package com.fry.report.utils;
 
 import com.alibaba.excel.EasyExcel;
+import com.alibaba.excel.ExcelWriter;
+import com.alibaba.excel.write.metadata.WriteSheet;
 import com.alibaba.excel.write.style.column.LongestMatchColumnWidthStyleStrategy;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.fry.report.common.ConvertList;
@@ -12,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author: QTX
@@ -97,6 +101,27 @@ public class ExcelTransfer<T> {
      */
     public void exportExcel(HttpServletResponse response, List<T> list, String name, String sheet, Class<?> aClass) {
         extracted(response, list, name, sheet, aClass);
+    }
+
+
+    public void exportExcel(HttpServletResponse response, String name, Map<List<List<String>>,List<List<String>>> listListMap) throws IOException {
+
+            response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            response.setCharacterEncoding("utf-8");
+            // 这里URLEncoder.encode可以防止中文乱码 当然和easyexcel没有关系
+            String fileName = URLEncoder.encode(name, "UTF-8").replaceAll("\\+", "%20");
+            response.setHeader("Content-disposition", "attachment;filename*=utf-8''" + fileName + ".xlsx");
+            try(ExcelWriter excelWriter = EasyExcel.write(response.getOutputStream()).registerWriteHandler(new LongestMatchColumnWidthStyleStrategy()).build()) {
+                AtomicInteger i = new AtomicInteger(0);
+                listListMap.forEach((k,v)->{
+                    WriteSheet writeSheet = EasyExcel.writerSheet(i.get(), "模板" + i).head(k).build();
+                    excelWriter.write(v, writeSheet);
+                    i.getAndIncrement();
+                });
+            }
+
+
+
     }
 
     private void extracted(HttpServletResponse response, List<T> list, String name, String sheet, Class<?> aClass) {

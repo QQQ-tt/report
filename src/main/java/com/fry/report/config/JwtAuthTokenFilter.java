@@ -54,6 +54,7 @@ public class JwtAuthTokenFilter extends OncePerRequestFilter {
             return;
         }
         if (jwtUtils.isTokenExpired(s.getToken())) {
+            jwtUtils.TOKEN.remove(card);
             log.info("token info error {}", DataEnums.USER_LOGIN_EXPIRED);
             CommonMethod.failed(response, DataEnums.USER_LOGIN_EXPIRED);
             return;

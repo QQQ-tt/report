@@ -38,7 +38,6 @@ public class InvoiceRecordsController {
         return ResultObject.success(invoiceRecordsService.saveOrUpdateNew(info));
     }
 
-    @PreAuthorize("hasAnyAuthority('role')")
     @DeleteMapping("/remove/{id}")
     public ResultObject<Boolean> remove(@PathVariable Long id) {
         return ResultObject.success(invoiceRecordsService.removeById(id));

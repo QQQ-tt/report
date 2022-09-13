@@ -1,5 +1,6 @@
 package com.fry.report.service.impl;
 
+import com.fry.report.dto.RoleUrlDto;
 import com.fry.report.entity.SysRoleUrl;
 import com.fry.report.mapper.SysRoleUrlMapper;
 import com.fry.report.service.ISysRoleUrlService;
@@ -29,5 +30,11 @@ import java.util.Set;
 @Service
 public class SysRoleUrlServiceImpl extends ServiceImpl<SysRoleUrlMapper, SysRoleUrl> implements ISysRoleUrlService {
 
+    @Autowired
+    private SysRoleUrlMapper mapper;
+
+    public List<RoleUrlDto> getRoleUrlAll(){
+        return mapper.selectRoleUrlDto();
+    }
 
 }

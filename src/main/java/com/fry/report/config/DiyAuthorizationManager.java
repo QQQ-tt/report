@@ -1,5 +1,7 @@
 package com.fry.report.config;
 
+import com.fry.report.task.RoleUrlTask;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authorization.AuthorizationDecision;
 import org.springframework.security.authorization.AuthorizationManager;
 import org.springframework.security.core.Authentication;
@@ -17,6 +19,8 @@ import java.util.function.Supplier;
 @Component
 public class DiyAuthorizationManager implements AuthorizationManager<RequestAuthorizationContext> {
 
+    @Autowired
+    private RoleUrlTask roleUrlTask;
     @Override
     public AuthorizationDecision check(Supplier<Authentication> authentication, RequestAuthorizationContext object) {
         Collection<? extends GrantedAuthority> collection = authentication.get().getAuthorities();
@@ -27,7 +31,6 @@ public class DiyAuthorizationManager implements AuthorizationManager<RequestAuth
         if (login.equals(path) || createUser.equals(path) || addUrlAll.equals(path)){
             return new AuthorizationDecision(true);
         }
-
-        return new AuthorizationDecision(true);
+        return new AuthorizationDecision(roleUrlTask.getAuth(collection,path));
     }
 }

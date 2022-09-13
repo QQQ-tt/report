@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -18,6 +19,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  * @Since: 2022/8/23
  */
 @Configuration
+@EnableMethodSecurity
 public class SecurityConfig {
 
     @Autowired
@@ -31,6 +33,9 @@ public class SecurityConfig {
 
     @Autowired
     private DiyAuthenticationEntryPoint authenticationEntryPoint;
+
+    @Autowired
+    private DiyAuthorizationManager authorizationManager;
 
     /**
      * 密码解密方式
@@ -51,9 +56,8 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .exceptionHandling().accessDeniedHandler(accessDeniedHandler)
-                .authenticationEntryPoint(authenticationEntryPoint).and().authorizeRequests(
-                        authorize -> authorize.mvcMatchers("/report/sysUser/login", "/report/sysUser/createUser").anonymous()
-                                .anyRequest().authenticated())
+                .authenticationEntryPoint(authenticationEntryPoint).and()
+                .authorizeHttpRequests(auth -> auth.anyRequest().access(authorizationManager))
                 .addFilterBefore(jwtAuthTokenFilter, UsernamePasswordAuthenticationFilter.class)
                 .userDetailsService(userDetailsService);
         return http.build();

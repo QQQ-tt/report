@@ -8,33 +8,26 @@ import lombok.Setter;
 
 /**
  * <p>
- * 
+ * 用户角色关系表
  * </p>
  *
  * @author qtx
- * @since 2022-08-30
+ * @since 2022-09-07
  */
 @Getter
 @Setter
-@TableName("sys_user")
-public class SysUser extends BaseEntity {
-
-
-    /**
-     * 用户名
-     */
-    @TableField("name")
-    private String name;
+@TableName("sys_user_role")
+public class SysUserRole extends BaseEntity {
 
     /**
-     * 账号
+     * 用户账号
      */
-    @TableField("card")
-    private Integer card;
+    @TableField("user_card")
+    private Integer userCard;
 
     /**
-     * 密码
+     * 角色id
      */
-    @TableField("password")
-    private String password;
+    @TableField("role_id")
+    private Integer roleId;
 }

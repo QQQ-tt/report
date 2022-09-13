@@ -3,7 +3,7 @@ package com.fry.report;
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
 import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
 import com.baomidou.mybatisplus.generator.config.OutputFile;
-import com.fry.report.common.BaseEntity;
+import com.fry.report.common.pojo.BaseEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.Arrays;
@@ -19,7 +19,7 @@ import java.util.List;
 public class Generator {
 
     private static final DataSourceConfig.Builder DATA_SOURCE_CONFIG = new DataSourceConfig.Builder(
-            "jdbc:mysql://127.0.0.1:3307/report", "root", "123456");
+            "jdbc:mysql://127.0.0.1:3306/report", "root", "123456");
 
     public static void main(String[] args) {
         String projectPath = System.getProperty("user.dir");

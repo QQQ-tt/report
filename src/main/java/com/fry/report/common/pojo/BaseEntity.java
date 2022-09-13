@@ -1,4 +1,4 @@
-package com.fry.report.common;
+package com.fry.report.common.pojo;
 
 import com.alibaba.excel.annotation.ExcelIgnore;
 import com.alibaba.excel.annotation.ExcelProperty;

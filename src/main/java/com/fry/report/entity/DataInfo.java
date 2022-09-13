@@ -8,29 +8,40 @@ import lombok.Setter;
 
 /**
  * <p>
- * 
+ * 数据库信息表
  * </p>
  *
  * @author qtx
- * @since 2022-08-30
+ * @since 2022-09-03
  */
 @Getter
 @Setter
-@TableName("sys_user")
-public class SysUser extends BaseEntity {
-
+@TableName("data_info")
+public class DataInfo extends BaseEntity {
 
     /**
-     * 用户名
+     * 名称
      */
     @TableField("name")
     private String name;
 
     /**
-     * 账号
+     * 数据类型
      */
-    @TableField("card")
-    private Integer card;
+    @TableField("data_type")
+    private String dataType;
+
+    /**
+     * 数据库jdbc:url地址
+     */
+    @TableField("url")
+    private String url;
+
+    /**
+     * 用户名
+     */
+    @TableField("user")
+    private String user;
 
     /**
      * 密码

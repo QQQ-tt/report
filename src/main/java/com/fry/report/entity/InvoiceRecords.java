@@ -5,8 +5,8 @@ import com.alibaba.excel.annotation.write.style.ContentFontStyle;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fry.report.common.BaseEntity;
-import java.io.Serializable;
+import com.fry.report.common.pojo.BaseEntity;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import lombok.Getter;
@@ -25,7 +25,6 @@ import lombok.Setter;
 @TableName("invoice_records")
 @ContentFontStyle(fontHeightInPoints = 12)
 public class InvoiceRecords extends BaseEntity {
-
 
     /**
      * 票据代码

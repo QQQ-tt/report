@@ -17,12 +17,16 @@ import java.util.function.Supplier;
 @Component
 public class DiyAuthorizationManager implements AuthorizationManager<RequestAuthorizationContext> {
 
-
-
     @Override
     public AuthorizationDecision check(Supplier<Authentication> authentication, RequestAuthorizationContext object) {
         Collection<? extends GrantedAuthority> collection = authentication.get().getAuthorities();
-        String path = object.getRequest().getContextPath();
+        String path = object.getRequest().getServletPath();
+        String login = "/report/sysUser/login";
+        String createUser = "/report/sysUser/createUser";
+        String addUrlAll = "/report/sysUrl/addUrlAll";
+        if (login.equals(path) || createUser.equals(path) || addUrlAll.equals(path)){
+            return new AuthorizationDecision(true);
+        }
 
         return new AuthorizationDecision(true);
     }

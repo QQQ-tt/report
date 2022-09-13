@@ -1,6 +1,5 @@
 package com.fry.report.config;
 
-import com.alibaba.fastjson.JSONArray;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.fry.report.common.CommonMethod;
 import com.fry.report.common.enums.DataEnums;
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -60,8 +58,7 @@ public class JwtAuthTokenFilter extends OncePerRequestFilter {
             return;
         }
         // 通过验证
-        // todo 权限无
-        SecurityContext context = SecurityContextHolder.createEmptyContext();
+        SecurityContext context = SecurityContextHolder.getContext();
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(s.getUser(), null,
                 s.getUser().getAuthorities());
         context.setAuthentication(authenticationToken);

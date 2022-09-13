@@ -32,4 +32,16 @@ public class SysUrl extends BaseEntity {
      */
     @TableField("url")
     private String url;
+
+    /**
+     * bean名字
+     */
+    @TableField("bean")
+    private String bean;
+
+    /**
+     * 请求类型
+     */
+    @TableField("request_type")
+    private String requestType;
 }

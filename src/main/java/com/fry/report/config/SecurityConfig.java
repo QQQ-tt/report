@@ -56,9 +56,8 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .exceptionHandling().accessDeniedHandler(accessDeniedHandler)
-                .authenticationEntryPoint(authenticationEntryPoint).and().authorizeHttpRequests(
-                        auth -> auth.antMatchers("/report/sysUser/login", "/report/sysUser/createUser").permitAll()
-                                .anyRequest().access(authorizationManager))
+                .authenticationEntryPoint(authenticationEntryPoint).and()
+                .authorizeHttpRequests(auth -> auth.anyRequest().access(authorizationManager))
                 .addFilterBefore(jwtAuthTokenFilter, UsernamePasswordAuthenticationFilter.class)
                 .userDetailsService(userDetailsService);
         return http.build();

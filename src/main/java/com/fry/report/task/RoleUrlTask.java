@@ -27,7 +27,9 @@ import static java.util.stream.Collectors.toSet;
 @Slf4j
 @Component
 public class RoleUrlTask {
-
+    /**
+     * 配置类写好管理员角色名称
+     */
     @Value("${role.admin}")
     private String roleAdmin;
 

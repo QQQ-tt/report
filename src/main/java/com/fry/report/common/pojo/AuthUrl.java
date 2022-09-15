@@ -13,8 +13,6 @@ public class AuthUrl {
 
     private String url;
 
-
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {

@@ -13,6 +13,7 @@ import java.util.Collection;
 import java.util.function.Supplier;
 
 /**
+ * url权限校验
  * @author qtx
  * @date 2022/9/6 23:16
  */

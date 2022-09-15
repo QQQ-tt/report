@@ -38,31 +38,37 @@ public class JwtAuthTokenFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
             return;
         }
+        log.info("token :{}",token);
         String card = jwtUtils.getInfoFromToken(token);
         if (card == null){
             log.info("token info error {}", DataEnums.USER_IS_FAIL);
             CommonMethod.failed(response, DataEnums.USER_IS_FAIL);
             return;
         }
+        log.info("card :{}",card);
         // 验证token
+        log.info("token map :{}", jwtUtils.TOKEN);
         Token s = jwtUtils.TOKEN.get(card);
         if (Objects.isNull(s)){
             log.info("token info error {}", DataEnums.USER_NOT_LOGIN);
             CommonMethod.failed(response, DataEnums.USER_NOT_LOGIN);
             return;
         }
-        if (jwtUtils.isTokenExpired(s.getToken())) {
+        // 判断是否过期
+        if (jwtUtils.isTokenExpired(s.getToken())){
             jwtUtils.TOKEN.remove(card);
             log.info("token info error {}", DataEnums.USER_LOGIN_EXPIRED);
             CommonMethod.failed(response, DataEnums.USER_LOGIN_EXPIRED);
             return;
         }
-        // 通过验证
+        // 获取安全上下文
         SecurityContext context = SecurityContextHolder.getContext();
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(s.getUser(), null,
-                s.getUser().getAuthorities());
+        // 赋予权限
+        UsernamePasswordAuthenticationToken authenticationToken =
+                new UsernamePasswordAuthenticationToken(s.getUser(),null,s.getUser().getAuthorities());
         context.setAuthentication(authenticationToken);
         SecurityContextHolder.setContext(context);
+        // 放行
         filterChain.doFilter(request, response);
     }
 }

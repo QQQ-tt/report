@@ -24,7 +24,7 @@ public class SysRoleUrlServiceImpl extends ServiceImpl<SysRoleUrlMapper, SysRole
     @Autowired
     private SysRoleUrlMapper mapper;
 
-    public List<RoleUrlDto> getRoleUrlAll(){
+    public List<RoleUrlDto> getRoleUrlAll() {
         return mapper.selectRoleUrlDto();
     }
 

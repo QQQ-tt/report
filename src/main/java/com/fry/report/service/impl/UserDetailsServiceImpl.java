@@ -20,14 +20,14 @@ import java.util.Objects;
  * @Since: 2022/8/30
  */
 @Service
-public class UserDetailsServiceImpl  implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private SysUserMapper sysUserMapper;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         SysUser one = sysUserMapper.selectOne(Wrappers.lambdaQuery(SysUser.class).eq(SysUser::getCard, username));
-        if (Objects.isNull(one)){
+        if (Objects.isNull(one)) {
             throw new UsernameNotFoundException("用户为空");
         }
         List<GrantedAuthority> list = AuthorityUtils.commaSeparatedStringToAuthorityList("role");

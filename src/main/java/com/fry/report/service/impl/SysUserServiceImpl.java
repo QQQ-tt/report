@@ -18,6 +18,7 @@ import com.fry.report.utils.JwtUtils;
 import com.fry.report.utils.NumUtils;
 import com.fry.report.pojo.vo.CreateVo;
 import com.fry.report.pojo.vo.LoginVo;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -38,6 +39,7 @@ import java.util.stream.Collectors;
  * @author qtx
  * @since 2022-08-30
  */
+@Slf4j
 @Service
 public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements ISysUserService {
 
@@ -65,7 +67,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         String username = principal.getUsername();
         principal.eraseCredentials();
         String token = jwtUtils.generateToken(username);
-        jwtUtils.TOKEN.put(username, new Token(token,principal));
+        jwtUtils.TOKEN.put(username, new Token(token, principal));
+        log.info("token map :{}", jwtUtils.TOKEN);
         return new LoginVo().setToken(token).setCard(username);
     }
 
@@ -102,7 +105,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Override
     public IPage<SysUser> allPage(SysUserDto dto) {
         return page(new Page<>(dto.getNum(), dto.getSize()),
-                Wrappers.lambdaQuery(SysUser.class).like(dto.getCard() != null, SysUser::getCard, dto.getCard())
+                Wrappers.lambdaQuery(SysUser.class)
+                        .like(dto.getCard() != null, SysUser::getCard, dto.getCard())
                         .like(StringUtils.isNotBlank(dto.getName()), SysUser::getName, dto.getName()));
     }
 
@@ -115,6 +119,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
             throw new DateException(DataEnums.WRONG_PASSWORD);
         }
         return update(Wrappers.lambdaUpdate(SysUser.class)
-                .set(SysUser::getPassword, passwordEncoder.encode(user.getNewPassword())).eq(SysUser::getCard, s));
+                .set(SysUser::getPassword, passwordEncoder.encode(user.getNewPassword()))
+                .eq(SysUser::getCard, s));
     }
 }

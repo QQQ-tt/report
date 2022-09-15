@@ -15,6 +15,7 @@ public interface ISysRoleService extends IService<SysRole> {
 
     /**
      * 新建或更新
+     *
      * @param sysRole 角色实体
      * @return true or false
      */

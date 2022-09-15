@@ -42,6 +42,7 @@ public class DataInfoServiceImpl extends ServiceImpl<DataInfoMapper, DataInfo> i
 
     /**
      * 手动创造数据
+     *
      * @param response
      * @throws IOException
      */
@@ -50,9 +51,9 @@ public class DataInfoServiceImpl extends ServiceImpl<DataInfoMapper, DataInfo> i
         Map<List<List<String>>, List<List<String>>> map = new HashMap<>();
         for (int i = 0; i < 5; i++) {
             List<String> list = new ArrayList<>();
-            list.add(i+"字段1");
-            list.add(i+"字段2");
-            list.add(i+"字段3");
+            list.add(i + "字段1");
+            list.add(i + "字段2");
+            list.add(i + "字段3");
             List<List<String>> head = getHead(list);
             List<List<String>> dataes = new ArrayList<>();
             List<String> data = new ArrayList<>();
@@ -60,13 +61,14 @@ public class DataInfoServiceImpl extends ServiceImpl<DataInfoMapper, DataInfo> i
             data.add("数据2");
             data.add("数据3");
             dataes.add(data);
-            map.put(head,dataes);
+            map.put(head, dataes);
         }
-        excelTransfer.exportExcel(response,"test",map);
+        excelTransfer.exportExcel(response, "test", map);
     }
 
     /**
      * 自定义拦截器
+     *
      * @param response
      * @throws IOException
      */
@@ -111,9 +113,9 @@ public class DataInfoServiceImpl extends ServiceImpl<DataInfoMapper, DataInfo> i
                 .doWrite(list);
     }
 
-    private List<List<String>> getHead(List<String> list){
+    private List<List<String>> getHead(List<String> list) {
         List<List<String>> lists = new ArrayList<>();
-        list.forEach(e->{
+        list.forEach(e -> {
             List<String> arrayList = new ArrayList<>();
             arrayList.add(e);
             lists.add(arrayList);

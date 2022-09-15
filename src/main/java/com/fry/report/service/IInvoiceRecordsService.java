@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 public interface IInvoiceRecordsService extends IService<InvoiceRecords> {
     /**
      * 分页查询
+     *
      * @param dto 条件信息
      * @return 分页结果
      */
@@ -27,8 +28,10 @@ public interface IInvoiceRecordsService extends IService<InvoiceRecords> {
 
     /**
      * 更新或添加
+     *
      * @param info 数据详情
      * @return true or false
+     *
      * @throws DateException 数据添加失败
      */
     boolean saveOrUpdateNew(InvoiceRecords info) throws DateException;

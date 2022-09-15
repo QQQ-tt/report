@@ -1,10 +1,10 @@
-package com.fry.report.config;
+package com.fry.report.config.security;
 
 import com.fry.report.common.CommonMethod;
 import com.fry.report.common.enums.DataEnums;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
@@ -18,9 +18,9 @@ import java.io.IOException;
  */
 @Component
 @Slf4j
-public class DiyAccessDeniedHandler implements AccessDeniedHandler {
+public class DiyAuthenticationEntryPoint implements AuthenticationEntryPoint {
     @Override
-    public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
+    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
         log.info("user info error {}", DataEnums.ACCESS_DENIED);
         CommonMethod.failed(response, DataEnums.ACCESS_DENIED);
     }

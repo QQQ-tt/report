@@ -1,6 +1,6 @@
 package com.fry.report.task;
 
-import com.fry.report.dto.RoleUrlDto;
+import com.fry.report.pojo.dto.RoleUrlDto;
 import com.fry.report.service.impl.SysRoleUrlServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.fry.report.config;
+package com.fry.report.config.security;
 
 import com.fry.report.task.RoleUrlTask;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,13 +1,11 @@
 package com.fry.report.mapper;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Constants;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.fry.report.entity.InvoiceRecords;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.fry.report.vo.InvoiceRecordsVo;
+import com.fry.report.pojo.vo.InvoiceRecordsVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

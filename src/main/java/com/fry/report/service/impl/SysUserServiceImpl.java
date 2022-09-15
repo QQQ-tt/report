@@ -1,6 +1,5 @@
 package com.fry.report.service.impl;
 
-import com.alibaba.fastjson.JSONArray;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -10,15 +9,15 @@ import com.fry.report.common.CommonMethod;
 import com.fry.report.common.enums.DataEnums;
 import com.fry.report.common.exception.DateException;
 import com.fry.report.common.pojo.Token;
-import com.fry.report.dto.SysUserDto;
-import com.fry.report.dto.SysUserPasswordDto;
+import com.fry.report.pojo.dto.SysUserDto;
+import com.fry.report.pojo.dto.SysUserPasswordDto;
 import com.fry.report.entity.SysUser;
 import com.fry.report.mapper.SysUserMapper;
 import com.fry.report.service.ISysUserService;
 import com.fry.report.utils.JwtUtils;
 import com.fry.report.utils.NumUtils;
-import com.fry.report.vo.CreateVo;
-import com.fry.report.vo.LoginVo;
+import com.fry.report.pojo.vo.CreateVo;
+import com.fry.report.pojo.vo.LoginVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

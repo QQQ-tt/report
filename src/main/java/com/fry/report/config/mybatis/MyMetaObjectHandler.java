@@ -1,4 +1,4 @@
-package com.fry.report.config;
+package com.fry.report.config.mybatis;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.fry.report.common.CommonMethod;

@@ -140,35 +140,4 @@ public class DataListener<E> implements ReadListener<E> {
         }
         return num != fields.length;
     }
-
-    /**
-     * 判断excel是否与数据库对应
-     *
-     * @param list 真实数据
-     * @return 是否一致
-     */
-    public boolean entityTableUnite(List<E> list) {
-        AtomicLong count = new AtomicLong();
-        list.forEach(
-                data -> {
-                    Field[] fields = data.getClass().getDeclaredFields();
-                    count.set(
-                            count.get()
-                                    + Arrays.stream(fields)
-                                            .filter(f -> f.isAnnotationPresent(TableField.class))
-                                            .filter(e -> !e.getAnnotation(TableField.class).exist())
-                                            .filter(
-                                                    f -> {
-                                                        boolean b;
-                                                        try {
-                                                            b = f.get(data) != null;
-                                                        } catch (IllegalAccessException e) {
-                                                            throw new RuntimeException(e);
-                                                        }
-                                                        return b;
-                                                    })
-                                            .count());
-                });
-        return count.get() == 0;
-    }
 }

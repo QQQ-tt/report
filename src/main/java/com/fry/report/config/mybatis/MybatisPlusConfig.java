@@ -1,4 +1,4 @@
-package com.fry.report.config;
+package com.fry.report.config.mybatis;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;

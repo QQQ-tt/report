@@ -2,12 +2,12 @@ package com.fry.report.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.fry.report.common.exception.DateException;
-import com.fry.report.dto.SysUserDto;
-import com.fry.report.dto.SysUserPasswordDto;
+import com.fry.report.pojo.dto.SysUserDto;
+import com.fry.report.pojo.dto.SysUserPasswordDto;
 import com.fry.report.entity.SysUser;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.fry.report.vo.CreateVo;
-import com.fry.report.vo.LoginVo;
+import com.fry.report.pojo.vo.CreateVo;
+import com.fry.report.pojo.vo.LoginVo;
 
 /**
  * <p>

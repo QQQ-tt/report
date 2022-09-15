@@ -1,7 +1,7 @@
 CREATE TABLE `sys_role`
 (
     `id`          int                                                          NOT NULL AUTO_INCREMENT,
-    `role_id`     int                                                          NULL COMMENT '角色id',
+    `role_id`     varchar(32)                                                  NULL COMMENT '角色id',
     `role_name`   varchar(50)                                                  NULL COMMENT '角色名字',
     `create_by`   varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '创建数据的用户',
     `create_time` datetime(0)                                                  NULL DEFAULT NULL COMMENT '创建时间',

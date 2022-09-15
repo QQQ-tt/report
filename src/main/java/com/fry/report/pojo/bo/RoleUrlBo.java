@@ -1,4 +1,4 @@
-package com.fry.report.pojo.dto;
+package com.fry.report.pojo.bo;
 
 import lombok.Data;
 
@@ -7,9 +7,9 @@ import lombok.Data;
  * @date 2022/9/13 21:37
  */
 @Data
-public class RoleUrlDto {
+public class RoleUrlBo {
 
     private String url;
 
-    private String role;
+    private String roleName;
 }

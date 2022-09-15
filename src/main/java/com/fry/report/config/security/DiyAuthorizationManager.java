@@ -27,10 +27,10 @@ public class DiyAuthorizationManager implements AuthorizationManager<RequestAuth
         String path = object.getRequest().getServletPath();
         String login = "/report/sysUser/login";
         String createUser = "/report/sysUser/createUser";
-        String addUrlAll = "/report/sysUrl/addUrlAll";
-        if (login.equals(path) || createUser.equals(path) || addUrlAll.equals(path)){
+        if (login.equals(path) || createUser.equals(path)){
             return new AuthorizationDecision(true);
         }
+        //return new AuthorizationDecision(true);
         return new AuthorizationDecision(roleUrlTask.getAuth(collection,path));
     }
 }

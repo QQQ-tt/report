@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fry.report.mapper.SysRoleUrlMapper">
 
-    <select id="selectRoleUrlDto" resultType="com.fry.report.pojo.dto.RoleUrlDto">
+    <select id="selectRoleUrlDto" resultType="com.fry.report.pojo.bo.RoleUrlBo">
         select sr.role_name, su.url
         from sys_role_url
                  left join sys_role sr

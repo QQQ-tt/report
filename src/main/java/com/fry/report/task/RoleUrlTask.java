@@ -1,13 +1,15 @@
 package com.fry.report.task;
 
-import com.fry.report.pojo.dto.RoleUrlDto;
+import com.fry.report.pojo.bo.RoleUrlBo;
 import com.fry.report.service.impl.SysRoleUrlServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -26,27 +28,36 @@ import static java.util.stream.Collectors.toSet;
 @Component
 public class RoleUrlTask {
 
+    @Value("${role.admin}")
+    private String roleAdmin;
+
     @Autowired
     private SysRoleUrlServiceImpl sysRoleUrlService;
 
     private Map<String, Set<String>> roleUrl;
 
+    @PostConstruct
     @Scheduled(cron = "0 */5 * * * ?")
     private void setRoleUrl() {
+        log.info("初始化用户权限开始。");
         roleUrl = null;
-        List<RoleUrlDto> roleUrlAll = sysRoleUrlService.getRoleUrlAll();
+        List<RoleUrlBo> roleUrlAll = sysRoleUrlService.getRoleUrlAll();
         roleUrl = roleUrlAll.stream()
-                .collect(Collectors.groupingBy(RoleUrlDto::getRole, mapping(RoleUrlDto::getUrl, toSet())));
+                .collect(Collectors.groupingBy(RoleUrlBo::getRoleName, mapping(RoleUrlBo::getUrl, toSet())));
+        log.info("初始化用户权限结束。");
     }
 
     public boolean getAuth(Collection<? extends GrantedAuthority> roleList, String url) {
         AtomicBoolean flag = new AtomicBoolean(false);
         AtomicBoolean admin = new AtomicBoolean(false);
         roleList.forEach(e -> {
-            if ("admin".equals(e.getAuthority()) && !admin.get()){
+            if (roleAdmin.equals(e.getAuthority()) && !admin.get()) {
                 flag.set(true);
             }
-            flag.set(roleUrl.get(e.getAuthority()).contains(url));
+            if (roleUrl.containsKey(e.getAuthority()) && !flag.get()){
+                // todo /report/invoiceRecords/remove/{id} 此类还无法校验
+                flag.set(roleUrl.get(e.getAuthority()).contains(url));
+            }
         });
         return flag.get() || admin.get();
     }

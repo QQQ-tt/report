@@ -3,6 +3,9 @@ package com.fry.report.service.impl;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.fry.report.entity.SysUser;
 import com.fry.report.mapper.SysUserMapper;
+import com.fry.report.service.ISysUrlService;
+import com.fry.report.service.ISysUserRoleService;
+import com.fry.report.service.ISysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -23,6 +26,8 @@ import java.util.Objects;
 public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private SysUserMapper sysUserMapper;
+    @Autowired
+    private ISysUserRoleService sysUserRoleService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -30,7 +35,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (Objects.isNull(one)) {
             throw new UsernameNotFoundException("用户为空");
         }
-        List<GrantedAuthority> list = AuthorityUtils.commaSeparatedStringToAuthorityList("role");
+        List<GrantedAuthority> list =
+                AuthorityUtils.commaSeparatedStringToAuthorityList(sysUserRoleService.getRoleByUser(
+                one.getCard()));
         return new User(String.valueOf(one.getCard()), one.getPassword(), list);
     }
 }

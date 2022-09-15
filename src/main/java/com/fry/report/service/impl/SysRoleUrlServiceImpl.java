@@ -1,13 +1,15 @@
 package com.fry.report.service.impl;
 
-import com.fry.report.pojo.dto.RoleUrlDto;
+import com.fry.report.pojo.bo.RoleUrlBo;
 import com.fry.report.entity.SysRoleUrl;
 import com.fry.report.mapper.SysRoleUrlMapper;
+import com.fry.report.pojo.dto.RoleUrlsDto;
 import com.fry.report.service.ISysRoleUrlService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,8 +26,14 @@ public class SysRoleUrlServiceImpl extends ServiceImpl<SysRoleUrlMapper, SysRole
     @Autowired
     private SysRoleUrlMapper mapper;
 
-    public List<RoleUrlDto> getRoleUrlAll() {
+    public List<RoleUrlBo> getRoleUrlAll() {
         return mapper.selectRoleUrlDto();
     }
 
+    @Override
+    public boolean addUrlWithRole(RoleUrlsDto dto) {
+        List<SysRoleUrl> list = new ArrayList<>();
+        dto.getUrlIds().forEach(e -> list.add(SysRoleUrl.builder().roleId(dto.getRoleId()).urlId(e).build()));
+        return saveOrUpdateBatch(list);
+    }
 }

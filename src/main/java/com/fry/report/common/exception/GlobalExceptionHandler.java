@@ -20,4 +20,10 @@ public class GlobalExceptionHandler {
         log.info(e.getMessage());
         return ResultObject.failed(e.getMessage(),e.getCode());
     }
+
+    @ExceptionHandler(NullPointerException.class)
+    public ResultObject<String> nullException(DateException e){
+        log.info(e.getMessage());
+        return ResultObject.failed(e.getMessage(),e.getCode());
+    }
 }

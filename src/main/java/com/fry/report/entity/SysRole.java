@@ -23,7 +23,7 @@ public class SysRole extends BaseEntity {
      * 角色id
      */
     @TableField("role_id")
-    private Integer roleId;
+    private String roleId;
 
     /**
      * 角色名字

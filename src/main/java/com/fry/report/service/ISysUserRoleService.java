@@ -1,7 +1,8 @@
 package com.fry.report.service;
 
-import com.fry.report.entity.SysUserRole;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.fry.report.entity.SysUserRole;
+import com.fry.report.pojo.dto.UserRolesDto;
 
 /**
  * <p>
@@ -13,4 +14,18 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ISysUserRoleService extends IService<SysUserRole> {
 
+    /**
+     * 赋予用户对应的角色
+     * @param dto 用户card和对应角色的id集合
+     * @return true or false
+     */
+    boolean addRoleWithUser(UserRolesDto dto);
+
+    /**
+     * 通过用户card获取角色
+     *
+     * @param card
+     * @return
+     */
+    String getRoleByUser(Integer card);
 }

@@ -4,6 +4,8 @@ import com.fry.report.entity.SysUserRole;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 /**
  * <p>
  * 用户角色关系表 Mapper 接口
@@ -14,5 +16,11 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface SysUserRoleMapper extends BaseMapper<SysUserRole> {
+    /**
+     * 通过用户card获取角色
+     * @param card
+     * @return
+     */
+    List<String> selectRoleByUserCard(int card);
 
 }

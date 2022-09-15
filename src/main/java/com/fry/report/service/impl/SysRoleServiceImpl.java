@@ -20,8 +20,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
 
     @Override
     public boolean saveOrUpdateNew(SysRole sysRole) {
-        String s = NumUtils.numRandom(10, 1, 9);
-        sysRole.setRoleId(Integer.parseInt(s));
+        sysRole.setRoleId(NumUtils.uuid());
         return saveOrUpdate(sysRole);
     }
 }

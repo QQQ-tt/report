@@ -3,8 +3,7 @@ package com.fry.report.entity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fry.report.common.pojo.BaseEntity;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 /**
  * <p>
@@ -16,6 +15,9 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @TableName("sys_role_url")
 public class SysRoleUrl extends BaseEntity {
 
@@ -23,11 +25,11 @@ public class SysRoleUrl extends BaseEntity {
      * 角色id
      */
     @TableField("role_id")
-    private Integer roleId;
+    private String roleId;
 
     /**
      * 地址id
      */
     @TableField("url_id")
-    private Integer urlId;
+    private String urlId;
 }

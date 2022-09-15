@@ -1,7 +1,10 @@
 package com.fry.report.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.fry.report.common.ResultObject;
+import com.fry.report.pojo.dto.UserRolesDto;
+import com.fry.report.service.ISysUserRoleService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>
@@ -15,4 +18,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/report/sysUserRole")
 public class SysUserRoleController {
 
+    @Autowired
+    private ISysUserRoleService sysUserRoleService;
+
+    @PostMapping("/addRoleWithUser")
+    public ResultObject<Boolean> addRoleWithUser(@RequestBody UserRolesDto dto) {
+        return ResultObject.success(sysUserRoleService.addRoleWithUser(dto));
+    }
+
+    @GetMapping("/getRoleByCard/{card}")
+    public ResultObject<String> getRoleByCard(@PathVariable Integer card){
+        return ResultObject.success(sysUserRoleService.getRoleByUser(card));
+    }
 }

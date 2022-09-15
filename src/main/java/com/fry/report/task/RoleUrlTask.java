@@ -52,7 +52,7 @@ public class RoleUrlTask {
         AtomicBoolean admin = new AtomicBoolean(false);
         roleList.forEach(e -> {
             if (roleAdmin.equals(e.getAuthority()) && !admin.get()) {
-                flag.set(true);
+                admin.set(true);
             }
             if (roleUrl.containsKey(e.getAuthority()) && !flag.get()){
                 // todo /report/invoiceRecords/remove/{id} 此类还无法校验

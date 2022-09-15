@@ -1,4 +1,4 @@
-package com.fry.report.config;
+package com.fry.report.config.security;
 
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.fry.report.common.CommonMethod;

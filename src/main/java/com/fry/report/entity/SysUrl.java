@@ -22,6 +22,12 @@ import lombok.Setter;
 public class SysUrl extends BaseEntity {
 
     /**
+     * 请求地址id
+     */
+    @TableField("url_id")
+    private String urlId;
+
+    /**
      * 请求名称
      */
     @TableField("name")

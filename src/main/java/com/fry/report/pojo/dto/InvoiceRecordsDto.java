@@ -1,4 +1,4 @@
-package com.fry.report.dto;
+package com.fry.report.pojo.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fry.report.common.CommonPage;

@@ -1,4 +1,4 @@
-package com.fry.report.vo;
+package com.fry.report.pojo.vo;
 
 import lombok.Data;
 

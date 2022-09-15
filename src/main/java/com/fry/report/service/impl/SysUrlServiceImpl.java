@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.fry.report.entity.SysUrl;
 import com.fry.report.mapper.SysUrlMapper;
 import com.fry.report.service.ISysUrlService;
+import com.fry.report.utils.NumUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.WebApplicationContext;
@@ -35,14 +36,17 @@ public class SysUrlServiceImpl extends ServiceImpl<SysUrlMapper, SysUrl> impleme
         // 拿到Handler适配器中的全部方法
         Map<RequestMappingInfo, HandlerMethod> methodMap = mapping.getHandlerMethods();
         methodMap.forEach((k, v) -> {
-            assert k.getPathPatternsCondition() != null;
-            Set<PathPattern> set = k.getPathPatternsCondition().getPatterns();
-            set.forEach(e -> save(SysUrl.builder()
-                    .name(v.getMethod().getName())
-                    .bean(v.getBean().toString())
-                    .requestType(k.getMethodsCondition().getMethods().toString())
-                    .url(e.getPatternString())
-                    .build()));
+            if (!"[]".equals(k.getMethodsCondition().getMethods().toString())){
+                assert k.getPathPatternsCondition() != null;
+                Set<PathPattern> set = k.getPathPatternsCondition().getPatterns();
+                set.forEach(e -> save(SysUrl.builder()
+                        .urlId(NumUtils.uuid())
+                        .name(v.getMethod().getName())
+                        .bean(v.getBean().toString())
+                        .requestType(k.getMethodsCondition().getMethods().toString())
+                        .url(e.getPatternString())
+                        .build()));
+            }
         });
     }
 }

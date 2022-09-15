@@ -2,4 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fry.report.mapper.SysRoleUrlMapper">
 
+    <select id="selectRoleUrlDto" resultType="com.fry.report.pojo.dto.RoleUrlDto">
+        select sr.role_name, su.url
+        from sys_role_url
+                 left join sys_role sr
+                           on sys_role_url.role_id = sr.role_id and sys_role_url.delete_flag = sr.delete_flag
+                 left join sys_url su on sys_role_url.url_id = su.url_id and sys_role_url.delete_flag = su.delete_flag
+        where sys_role_url.delete_flag = '0'
+    </select>
 </mapper>

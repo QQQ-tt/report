@@ -2,10 +2,10 @@ package com.fry.report.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.fry.report.common.exception.DateException;
-import com.fry.report.dto.InvoiceRecordsDto;
+import com.fry.report.pojo.dto.InvoiceRecordsDto;
 import com.fry.report.entity.InvoiceRecords;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.fry.report.vo.InvoiceRecordsVo;
+import com.fry.report.pojo.vo.InvoiceRecordsVo;
 
 import javax.servlet.http.HttpServletResponse;
 

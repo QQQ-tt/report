@@ -3,12 +3,12 @@ package com.fry.report.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.fry.report.common.ResultObject;
 import com.fry.report.common.exception.DateException;
-import com.fry.report.dto.SysUserDto;
-import com.fry.report.dto.SysUserPasswordDto;
+import com.fry.report.pojo.dto.SysUserDto;
+import com.fry.report.pojo.dto.SysUserPasswordDto;
 import com.fry.report.entity.SysUser;
 import com.fry.report.service.impl.SysUserServiceImpl;
-import com.fry.report.vo.CreateVo;
-import com.fry.report.vo.LoginVo;
+import com.fry.report.pojo.vo.CreateVo;
+import com.fry.report.pojo.vo.LoginVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

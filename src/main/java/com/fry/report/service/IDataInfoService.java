@@ -23,4 +23,11 @@ public interface IDataInfoService extends IService<DataInfo> {
      */
     void exportExcel(HttpServletResponse response) throws IOException;
 
+    /**
+     * 文件导出
+     *
+     * @param response
+     */
+    void exportExcel1(HttpServletResponse response) throws IOException;
+
 }

@@ -18,8 +18,8 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * @author: QTX
- * @date: 2022/5/17
+ * @author qtx
+ * @date 2022/5/17
  */
 @Slf4j
 @Component
@@ -34,7 +34,7 @@ public class ExcelTransfer<T> {
      * @param service 对应实体的service
      * @return 成功与否
      *
-     * @throws ClassNotFoundException
+     * @throws ClassNotFoundException 未找到指定文件
      */
     public boolean importExcel(MultipartFile file, IService<T> service) throws ClassNotFoundException {
         String name = service.getClass().getName();
@@ -103,25 +103,31 @@ public class ExcelTransfer<T> {
         extracted(response, list, name, sheet, aClass);
     }
 
-
-    public void exportExcel(HttpServletResponse response, String name, Map<List<List<String>>,List<List<String>>> listListMap) throws IOException {
-
-            response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-            response.setCharacterEncoding("utf-8");
-            // 这里URLEncoder.encode可以防止中文乱码 当然和easyexcel没有关系
-            String fileName = URLEncoder.encode(name, "UTF-8").replaceAll("\\+", "%20");
-            response.setHeader("Content-disposition", "attachment;filename*=utf-8''" + fileName + ".xlsx");
-            try(ExcelWriter excelWriter = EasyExcel.write(response.getOutputStream()).registerWriteHandler(new LongestMatchColumnWidthStyleStrategy()).build()) {
-                AtomicInteger i = new AtomicInteger(0);
-                listListMap.forEach((k,v)->{
-                    WriteSheet writeSheet = EasyExcel.writerSheet(i.get(), "模板" + i).head(k).build();
-                    excelWriter.write(v, writeSheet);
-                    i.getAndIncrement();
-                });
-            }
-
-
-
+    /**
+     * 多sheet，自定义数据源加表头
+     *
+     * @param response    http
+     * @param name        文件名称
+     * @param listListMap 表头为key，数据为value
+     * @throws IOException
+     */
+    public void exportExcel(HttpServletResponse response, String name,
+                            Map<List<List<String>>, List<List<String>>> listListMap) throws IOException {
+        response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        response.setCharacterEncoding("utf-8");
+        // 这里URLEncoder.encode可以防止中文乱码 当然和easyexcel没有关系
+        String fileName = URLEncoder.encode(name, "UTF-8").replaceAll("\\+", "%20");
+        response.setHeader("Content-disposition", "attachment;filename*=utf-8''" + fileName + ".xlsx");
+        try (ExcelWriter excelWriter = EasyExcel.write(response.getOutputStream())
+                .registerWriteHandler(new LongestMatchColumnWidthStyleStrategy())
+                .build()) {
+            AtomicInteger i = new AtomicInteger(0);
+            listListMap.forEach((k, v) -> {
+                WriteSheet writeSheet = EasyExcel.writerSheet(i.get(), "模板" + i).head(k).build();
+                excelWriter.write(v, writeSheet);
+                i.getAndIncrement();
+            });
+        }
     }
 
     private void extracted(HttpServletResponse response, List<T> list, String name, String sheet, Class<?> aClass) {
@@ -131,8 +137,10 @@ public class ExcelTransfer<T> {
             // 这里URLEncoder.encode可以防止中文乱码 当然和easyexcel没有关系
             String fileName = URLEncoder.encode(name, "UTF-8").replaceAll("\\+", "%20");
             response.setHeader("Content-disposition", "attachment;filename*=utf-8''" + fileName + ".xlsx");
-            EasyExcel.write(response.getOutputStream(), aClass).sheet(sheet)
-                    .registerWriteHandler(new LongestMatchColumnWidthStyleStrategy()).doWrite(list);
+            EasyExcel.write(response.getOutputStream(), aClass)
+                    .sheet(sheet)
+                    .registerWriteHandler(new LongestMatchColumnWidthStyleStrategy())
+                    .doWrite(list);
         } catch (IOException e) {
             log.error(e.getMessage(), e);
         }

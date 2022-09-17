@@ -9,6 +9,7 @@ import java.util.Objects;
  * @date 2022/9/15 21:51
  */
 @Data
+@Deprecated
 public class AuthUrl {
 
     private String url;

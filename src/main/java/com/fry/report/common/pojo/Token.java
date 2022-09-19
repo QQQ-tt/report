@@ -14,5 +14,6 @@ import org.springframework.security.core.userdetails.User;
 @NoArgsConstructor
 public class Token {
     private String token;
+    private String name;
     private User user;
 }

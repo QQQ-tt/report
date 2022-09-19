@@ -11,5 +11,6 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 public class LoginVo {
     private String card;
+    private String name;
     private String token;
 }

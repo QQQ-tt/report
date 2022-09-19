@@ -3,6 +3,7 @@ package com.fry.report.config.security;
 import com.fry.report.common.CommonMethod;
 import com.fry.report.common.enums.DataEnums;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
@@ -19,9 +20,13 @@ import java.io.IOException;
 @Component
 @Slf4j
 public class DiyAuthenticationEntryPoint implements AuthenticationEntryPoint {
+    @Autowired
+    private CommonMethod commonMethod;
+
     @Override
-    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
+    public void commence(HttpServletRequest request, HttpServletResponse response,
+                         AuthenticationException authException) throws IOException, ServletException {
         log.info("user info error {}", DataEnums.ACCESS_DENIED);
-        CommonMethod.failed(response, DataEnums.ACCESS_DENIED);
+        commonMethod.failed(response, DataEnums.ACCESS_DENIED);
     }
 }

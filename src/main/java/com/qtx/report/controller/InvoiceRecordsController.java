@@ -37,8 +37,8 @@ public class InvoiceRecordsController {
         return ResultObject.success(invoiceRecordsService.saveOrUpdateNew(info));
     }
 
-    @DeleteMapping("/remove/{id}")
-    public ResultObject<Boolean> remove(@PathVariable Long id) {
+    @DeleteMapping("/remove")
+    public ResultObject<Boolean> remove(@RequestParam Long id) {
         return ResultObject.success(invoiceRecordsService.removeById(id));
     }
 

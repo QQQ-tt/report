@@ -57,7 +57,8 @@ public class RoleUrlTask {
                 admin.set(true);
             }
             if (roleUrl.containsKey(e.getAuthority()) && !flag.get()) {
-                // todo /report/invoiceRecords/remove/{id} 此类还无法校验
+                // /report/invoiceRecords/remove/{id} 此类还无法校验
+                // 没想到解决方案，决定放弃 @PathVariable 此注解
                 flag.set(roleUrl.get(e.getAuthority()).contains(url));
             }
         });

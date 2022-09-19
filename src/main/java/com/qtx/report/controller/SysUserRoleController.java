@@ -26,8 +26,8 @@ public class SysUserRoleController {
         return ResultObject.success(sysUserRoleService.addRoleWithUser(dto));
     }
 
-    @GetMapping("/getRoleByCard/{card}")
-    public ResultObject<String> getRoleByCard(@PathVariable Integer card) {
+    @GetMapping("/getRoleByCard")
+    public ResultObject<String> getRoleByCard(@RequestParam Integer card) {
         return ResultObject.success(sysUserRoleService.getRoleByUser(card));
     }
 }

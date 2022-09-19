@@ -1,0 +1,31 @@
+package com.qtx.report.mapper;
+
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.toolkit.Constants;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.qtx.report.entity.InvoiceRecords;
+import com.qtx.report.pojo.vo.InvoiceRecordsVo;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+/**
+ * <p>
+ * 发票记录表 Mapper 接口
+ * </p>
+ *
+ * @author qtx
+ * @since 2022-08-31
+ */
+@Mapper
+public interface InvoiceRecordsMapper extends BaseMapper<InvoiceRecords> {
+    /**
+     * 分页查询
+     *
+     * @param page         分页参数
+     * @param queryWrapper 查询条件
+     * @return 分页集合
+     */
+    Page<InvoiceRecordsVo> selectPageNew(Page<InvoiceRecordsVo> page,
+                                         @Param(Constants.WRAPPER) LambdaQueryWrapper<InvoiceRecords> queryWrapper);
+}

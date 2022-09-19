@@ -5,8 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.userdetails.User;
 
-import java.time.LocalDateTime;
-
 /**
  * @author qtx
  * @date 2022/9/6 22:39
@@ -18,5 +16,4 @@ public class Token {
     private String token;
     private String name;
     private User user;
-    private LocalDateTime expiration;
 }

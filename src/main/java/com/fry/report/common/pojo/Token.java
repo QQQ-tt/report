@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class Token {
     private String token;
+    private String name;
     private User user;
     private LocalDateTime expiration;
 }

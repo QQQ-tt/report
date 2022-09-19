@@ -9,15 +9,15 @@ import com.fry.report.common.CommonMethod;
 import com.fry.report.common.enums.DataEnums;
 import com.fry.report.common.exception.DateException;
 import com.fry.report.common.pojo.Token;
-import com.fry.report.pojo.dto.SysUserDto;
-import com.fry.report.pojo.dto.SysUserPasswordDto;
 import com.fry.report.entity.SysUser;
 import com.fry.report.mapper.SysUserMapper;
+import com.fry.report.pojo.dto.SysUserDto;
+import com.fry.report.pojo.dto.SysUserPasswordDto;
+import com.fry.report.pojo.vo.CreateVo;
+import com.fry.report.pojo.vo.LoginVo;
 import com.fry.report.service.ISysUserService;
 import com.fry.report.utils.JwtUtils;
 import com.fry.report.utils.NumUtils;
-import com.fry.report.pojo.vo.CreateVo;
-import com.fry.report.pojo.vo.LoginVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -52,6 +52,9 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private CommonMethod commonMethod;
+
     @Override
     public LoginVo login(SysUser user) throws DateException {
         UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(user.getCard(),
@@ -64,12 +67,15 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         }
 
         User principal = (User) authenticate.getPrincipal();
-        String username = principal.getUsername();
         principal.eraseCredentials();
+        String username = principal.getUsername();
         String token = jwtUtils.generateToken(username);
-        jwtUtils.TOKEN.put(username, new Token(token, principal));
+        ThreadLocal<String> local = UserDetailsServiceImpl.LOCAL;
+        String s = local.get();
+        local.remove();
+        jwtUtils.TOKEN.put(username, new Token(token, s, principal));
         log.info("token map :{}", jwtUtils.TOKEN);
-        return new LoginVo().setToken(token).setCard(username);
+        return new LoginVo().setToken(token).setName(s);
     }
 
     @Override
@@ -113,7 +119,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Override
     public boolean changePassword(SysUserPasswordDto user) throws DateException {
         String password = user.getOldPassword();
-        String s = CommonMethod.getName();
+        String s = commonMethod.getUser().getUsername();
         String oldPassword = getOne(Wrappers.lambdaQuery(SysUser.class).eq(SysUser::getCard, s)).getPassword();
         if (!passwordEncoder.matches(password, oldPassword)) {
             throw new DateException(DataEnums.WRONG_PASSWORD);

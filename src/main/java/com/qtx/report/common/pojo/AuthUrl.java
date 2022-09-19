@@ -13,6 +13,7 @@ import java.util.Objects;
 public class AuthUrl {
 
     private String url;
+    
 
     @Override
     public boolean equals(Object o) {

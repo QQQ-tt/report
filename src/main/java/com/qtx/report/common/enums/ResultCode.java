@@ -8,11 +8,11 @@ public enum ResultCode {
     /**
      * 成功
      */
-    SUCCESS("成功",200),
+    SUCCESS("成功", 200),
     /**
      * 失败
      */
-    FAILED("失败",201);
+    FAILED("失败", 201);
 
     private String msg;
     private int code;

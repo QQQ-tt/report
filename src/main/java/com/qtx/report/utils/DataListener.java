@@ -61,7 +61,7 @@ public class DataListener<E> implements ReadListener<E> {
      */
     @Override
     public void invoke(E data, AnalysisContext context) {
-        // 哈哈 log.info("解析到一条数据:{}", JSON.toJSONString(data));
+        // log.info("解析到一条数据:{}", JSON.toJSONString(data));
         try {
             if (isNull(data)) {
                 log.info("添加一条数据到备选集合:{}", JSON.toJSONString(data));

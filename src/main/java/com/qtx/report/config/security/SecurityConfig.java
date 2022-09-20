@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -25,7 +24,6 @@ import java.util.Collections;
  * @Since: 2022/8/23
  */
 @Configuration
-@EnableMethodSecurity
 public class SecurityConfig {
 
     @Autowired
@@ -68,6 +66,7 @@ public class SecurityConfig {
      */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http.headers().frameOptions().disable();
         http.csrf()
                 .disable()
                 .sessionManagement()
@@ -92,7 +91,11 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:10087", "http://192.168.3.124:10087"));
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:10087",
+                "http://192.168.3.124:10087",
+                "http://localhost:10086",
+                "http://172.16.2.41:9098",
+                "http://localhost:9098"));
         configuration.setAllowedMethods(Collections.singletonList("*"));
         configuration.setAllowCredentials(true);
 

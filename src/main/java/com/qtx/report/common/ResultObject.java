@@ -12,10 +12,10 @@ import lombok.Data;
 public class ResultObject<T> {
     private String msg;
     private int code;
-    private T date;
+    private T data;
 
-    private ResultObject(T date) {
-        this.date = date;
+    private ResultObject(T data) {
+        this.data = data;
     }
 
     private ResultObject(int code) {
@@ -36,14 +36,14 @@ public class ResultObject<T> {
         this.msg = msg;
     }
 
-    private ResultObject(T date, int code, String msg) {
-        this.date = date;
+    private ResultObject(T data, int code, String msg) {
+        this.data = data;
         this.code = code;
         this.msg = msg;
     }
 
-    private ResultObject(T date, ResultCode resultCode) {
-        this.date = date;
+    private ResultObject(T data, ResultCode resultCode) {
+        this.data = data;
         this.code = resultCode.getCode();
         this.msg = resultCode.getMsg();
     }
@@ -61,7 +61,7 @@ public class ResultObject<T> {
     }
 
     public static <T> ResultObject<T> failed(String msg, int code) {
-        return new ResultObject<>(code,msg);
+        return new ResultObject<>(code, msg);
     }
 
     public static <T> ResultObject<T> failed(DataEnums dataEnums) {

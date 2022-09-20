@@ -8,6 +8,7 @@ import com.qtx.report.pojo.dto.InvoiceRecordsDto;
 import com.qtx.report.pojo.vo.InvoiceRecordsVo;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * <p>
@@ -42,4 +43,14 @@ public interface IInvoiceRecordsService extends IService<InvoiceRecords> {
      * @param response
      */
     void exportExcel(HttpServletResponse response) throws ClassNotFoundException;
+
+
+    /**
+     * 文件导出
+     *
+     * @param response
+     */
+    void exportExcel1(HttpServletResponse response) throws IOException;
+
+
 }

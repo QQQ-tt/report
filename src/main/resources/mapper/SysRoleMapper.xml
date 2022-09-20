@@ -2,4 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.qtx.report.mapper.SysRoleMapper">
 
+    <select id="listVo" resultType="com.qtx.report.pojo.vo.SysRoleVo">
+        select *
+        from sys_role
+        where delete_flag = '0'
+    </select>
 </mapper>

@@ -18,17 +18,17 @@ public class InvoiceRecordsDto extends CommonPage {
     /**
      * 票据代码
      */
-    private Integer ticketCode;
+    private String ticketCode;
 
     /**
      * 票据号码
      */
-    private Integer ticketNumber;
+    private String ticketNumber;
 
     /**
      * 流程号
      */
-    private Integer processNumber;
+    private String processNumber;
 
     /**
      * 开票日期

@@ -12,7 +12,8 @@
                reimbursement_person,
                process_number,
                remark,
-               create_by
+               create_by,
+               create_time
         from invoice_records ${ew.customSqlSegment}
     </select>
 </mapper>

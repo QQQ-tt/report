@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -21,8 +22,8 @@ import java.io.IOException;
 import java.util.Objects;
 
 /**
- * @author: QTX
- * @Since: 2022/8/30
+ * @author qtx
+ * @Since 2022/8/30
  */
 @Component
 @Slf4j
@@ -67,9 +68,10 @@ public class JwtAuthTokenFilter extends OncePerRequestFilter {
         // 获取安全上下文
         SecurityContext context = SecurityContextHolder.getContext();
         // 赋予权限
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(s.getUser(),
+        User user = s.getUser();
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user,
                 null,
-                s.getUser().getAuthorities());
+                user.getAuthorities());
         context.setAuthentication(authenticationToken);
         SecurityContextHolder.setContext(context);
         // 放行

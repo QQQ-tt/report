@@ -1,13 +1,13 @@
 package com.qtx.report.entity;
 
 import com.alibaba.excel.annotation.ExcelProperty;
+import com.alibaba.excel.annotation.format.DateTimeFormat;
 import com.alibaba.excel.annotation.write.style.ContentFontStyle;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.qtx.report.common.pojo.BaseEntity;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -24,6 +24,9 @@ import java.time.LocalDateTime;
 @Setter
 @TableName("invoice_records")
 @ContentFontStyle(fontHeightInPoints = 12)
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class InvoiceRecords extends BaseEntity {
 
     /**
@@ -31,27 +34,28 @@ public class InvoiceRecords extends BaseEntity {
      */
     @TableField("ticket_code")
     @ExcelProperty("票据代码")
-    private Integer ticketCode;
+    private String ticketCode;
 
     /**
      * 票据号码
      */
     @TableField("ticket_number")
     @ExcelProperty("票据号码")
-    private Integer ticketNumber;
+    private String ticketNumber;
 
     /**
      * 检验码
      */
     @TableField("check_code")
     @ExcelProperty("检验码")
-    private Integer checkCode;
+    private String checkCode;
 
     /**
      * 开票日期
      */
     @TableField("billing_date")
     @ExcelProperty("开票日期")
+    @DateTimeFormat("yyyy-MM-dd")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime billingDate;
 
@@ -74,7 +78,7 @@ public class InvoiceRecords extends BaseEntity {
      */
     @TableField("process_number")
     @ExcelProperty("流程号")
-    private Integer processNumber;
+    private String processNumber;
 
     /**
      * 备注

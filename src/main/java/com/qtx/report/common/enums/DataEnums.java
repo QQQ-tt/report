@@ -5,8 +5,8 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 /**
- * @author: QTX
- * @Since: 2022/8/30
+ * @author qtx
+ * @Since 2022/8/30
  */
 public enum DataEnums {
     /**
@@ -40,7 +40,11 @@ public enum DataEnums {
     /**
      * 数据插入失败
      */
-    DATA_INSERT_FAIL("数据插入失败", 203);
+    DATA_INSERT_FAIL("数据插入失败", 203),
+    /**
+     * 数据重复
+     */
+    DATA_INSERT_DUPLICATE("数据重复", 201);
     /**
      * 提示
      */

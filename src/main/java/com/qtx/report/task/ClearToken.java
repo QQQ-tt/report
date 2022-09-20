@@ -19,14 +19,14 @@ public class ClearToken {
     private JwtUtils jwtUtils;
 
     @Scheduled(cron = "0 0 * * * ? *")
-    private void clearToken(){
+    private void clearToken() {
         List<String> list = new ArrayList<>();
         jwtUtils.TOKEN.forEach(((s, token) -> {
-            if (jwtUtils.isTokenExpired(token.getToken())){
+            if (jwtUtils.isTokenExpired(token.getToken())) {
                 list.add(s);
             }
         }));
-        list.forEach(e->jwtUtils.TOKEN.remove(e));
-        log.info("清理过期token数量：{}",list.size());
+        list.forEach(e -> jwtUtils.TOKEN.remove(e));
+        log.info("清理过期token数量：{}", list.size());
     }
 }

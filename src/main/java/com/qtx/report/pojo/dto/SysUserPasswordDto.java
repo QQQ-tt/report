@@ -7,7 +7,7 @@ import lombok.Data;
  * @Since: 2022/8/31
  */
 @Data
-public class SysUserPasswordDto  {
+public class SysUserPasswordDto {
     private String oldPassword;
     private String newPassword;
 }

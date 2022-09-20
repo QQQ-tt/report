@@ -2,6 +2,9 @@ package com.qtx.report.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.qtx.report.entity.SysRole;
+import com.qtx.report.pojo.vo.SysRoleVo;
+
+import java.util.List;
 
 /**
  * <p>
@@ -20,4 +23,11 @@ public interface ISysRoleService extends IService<SysRole> {
      * @return true or false
      */
     boolean saveOrUpdateNew(SysRole sysRole);
+
+    /**
+     * 获取全部角色
+     *
+     * @return 角色集合
+     */
+    List<SysRoleVo> listAll();
 }

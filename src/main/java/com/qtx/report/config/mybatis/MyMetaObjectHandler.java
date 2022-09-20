@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 @Slf4j
 @Component
 public class MyMetaObjectHandler implements MetaObjectHandler {
+
     @Autowired
     private CommonMethod commonMethod;
 

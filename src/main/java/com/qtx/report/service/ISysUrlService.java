@@ -3,6 +3,7 @@ package com.qtx.report.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.qtx.report.entity.SysUrl;
 
+
 /**
  * <p>
  * 请求地址信息表 服务类

@@ -24,6 +24,7 @@ import java.util.Objects;
 public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private SysUserMapper sysUserMapper;
+
     @Autowired
     private ISysUserRoleService sysUserRoleService;
 
@@ -31,7 +32,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        SysUser one = sysUserMapper.selectOne(Wrappers.lambdaQuery(SysUser.class).eq(SysUser::getCard, username));
+        SysUser one = sysUserMapper.selectOne(Wrappers.lambdaQuery(SysUser.class)
+                .eq(SysUser::getCard, username)
+                .eq(SysUser::getStatus, "0"));
         if (Objects.isNull(one)) {
             throw new UsernameNotFoundException("用户为空");
         }

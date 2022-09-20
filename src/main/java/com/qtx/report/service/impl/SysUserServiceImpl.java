@@ -8,17 +8,24 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.qtx.report.common.CommonMethod;
 import com.qtx.report.common.enums.DataEnums;
 import com.qtx.report.common.exception.DateException;
+import com.qtx.report.common.pojo.BaseEntity;
 import com.qtx.report.common.pojo.Token;
 import com.qtx.report.entity.SysUser;
+import com.qtx.report.entity.SysUserRole;
 import com.qtx.report.mapper.SysUserMapper;
+import com.qtx.report.pojo.dto.CreateSysUserDto;
 import com.qtx.report.pojo.dto.SysUserDto;
 import com.qtx.report.pojo.dto.SysUserPasswordDto;
+import com.qtx.report.pojo.dto.UserRolesDto;
 import com.qtx.report.pojo.vo.CreateVo;
 import com.qtx.report.pojo.vo.LoginVo;
+import com.qtx.report.pojo.vo.SysUserVo;
+import com.qtx.report.service.ISysUserRoleService;
 import com.qtx.report.service.ISysUserService;
 import com.qtx.report.utils.JwtUtils;
 import com.qtx.report.utils.NumUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -28,6 +35,8 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -54,6 +63,10 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     @Autowired
     private CommonMethod commonMethod;
+    @Autowired
+    private SysUserMapper mapper;
+    @Autowired
+    private ISysUserRoleService sysUserRoleService;
 
     @Override
     public LoginVo login(SysUser user) throws DateException {
@@ -102,6 +115,20 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     }
 
     @Override
+    public boolean saveOrUpdateNew(CreateSysUserDto user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        List<String> list = new ArrayList<>();
+        list.add(user.getRoleId());
+        sysUserRoleService.remove(Wrappers.lambdaUpdate(SysUserRole.class)
+                .set(BaseEntity::getDeleteFlag, "1")
+                .eq(SysUserRole::getUserCard, user.getCard()));
+        sysUserRoleService.addRoleWithUser(new UserRolesDto().setCard(user.getCard()).setRoleIds(list));
+        SysUser sysUser = new SysUser();
+        BeanUtils.copyProperties(user, sysUser);
+        return saveOrUpdate(sysUser);
+    }
+
+    @Override
     public boolean logout() {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String s = user.getUsername();
@@ -109,10 +136,10 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     }
 
     @Override
-    public IPage<SysUser> allPage(SysUserDto dto) {
-        return page(new Page<>(dto.getNum(), dto.getSize()),
+    public IPage<SysUserVo> allPage(SysUserDto dto) {
+        return mapper.selectPageNew(new Page<>(dto.getNum(), dto.getSize()),
                 Wrappers.lambdaQuery(SysUser.class)
-                        .like(dto.getCard() != null, SysUser::getCard, dto.getCard())
+                        .like(StringUtils.isNotBlank(dto.getCard()), SysUser::getCard, dto.getCard())
                         .like(StringUtils.isNotBlank(dto.getName()), SysUser::getName, dto.getName()));
     }
 
@@ -127,5 +154,10 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         return update(Wrappers.lambdaUpdate(SysUser.class)
                 .set(SysUser::getPassword, passwordEncoder.encode(user.getNewPassword()))
                 .eq(SysUser::getCard, s));
+    }
+
+    @Override
+    public boolean updateByIdNew(Integer card, Integer status) {
+        return update(Wrappers.lambdaUpdate(SysUser.class).set(SysUser::getStatus, status).eq(SysUser::getCard, card));
     }
 }

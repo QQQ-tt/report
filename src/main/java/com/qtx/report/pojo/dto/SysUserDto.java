@@ -12,5 +12,5 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 public class SysUserDto extends CommonPage {
     private String name;
-    private Integer card;
+    private String card;
 }

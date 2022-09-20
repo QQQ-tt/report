@@ -14,8 +14,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
- * @author QTX
- * @since 2022/8/31
+ * @author: QTX
+ * @Since: 2022/8/31
  */
 @Component
 public class CommonMethod {
@@ -42,11 +42,6 @@ public class CommonMethod {
         writer.flush();
     }
 
-    /**
-     * 获取user
-     *
-     * @return
-     */
     public User getUser() {
         User user = null;
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();

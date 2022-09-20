@@ -8,6 +8,8 @@ import lombok.Data;
  */
 @Data
 public class CommonPage {
+
     private Integer size;
+
     private Integer num;
 }

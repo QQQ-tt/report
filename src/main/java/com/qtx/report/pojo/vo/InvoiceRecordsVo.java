@@ -1,5 +1,6 @@
 package com.qtx.report.pojo.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -16,12 +17,12 @@ public class InvoiceRecordsVo {
     /**
      * 票据代码
      */
-    private Integer ticketCode;
+    private String ticketCode;
 
     /**
      * 票据号码
      */
-    private Integer ticketNumber;
+    private String ticketNumber;
 
     /**
      * 检验码
@@ -31,6 +32,7 @@ public class InvoiceRecordsVo {
     /**
      * 开票日期
      */
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime billingDate;
 
     /**
@@ -46,7 +48,7 @@ public class InvoiceRecordsVo {
     /**
      * 流程号
      */
-    private Integer processNumber;
+    private String processNumber;
 
     /**
      * 备注
@@ -57,4 +59,10 @@ public class InvoiceRecordsVo {
      * 数据创建人
      */
     private String createBy;
+
+    /**
+     * 录入时间
+     */
+    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    private LocalDateTime createTime;
 }

@@ -19,7 +19,7 @@ import java.util.List;
 public class Generator {
 
     private static final DataSourceConfig.Builder DATA_SOURCE_CONFIG = new DataSourceConfig.Builder(
-            "jdbc:mysql://127.0.0.1:3306/report",
+            "jdbc:mysql://127.0.0.1:3307/report",
             "root",
             "123456");
 

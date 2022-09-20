@@ -28,5 +28,4 @@ public class SysRoleController {
     public ResultObject<Boolean> saveOrUpdateNew(@RequestBody SysRole sysRole) {
         return ResultObject.success(service.saveOrUpdateNew(sysRole));
     }
-
 }

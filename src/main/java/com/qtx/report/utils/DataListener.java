@@ -99,18 +99,18 @@ public class DataListener<E> implements ReadListener<E> {
     private void saveData() {
         Set<E> set = new HashSet<>(service.list());
         List<E> saveList = ListUtils.newArrayListWithExpectedSize(BATCH_COUNT);
-        List<E> asList;
+        Set<E> asList;
         if (convert != null) {
             log.info("{}条数据，开始转换数据格式。", cachedDataList.size());
             saveList.addAll(new HashSet<>(convert.convert(cachedDataList)));
         } else {
-            asList = cachedDataList;
+            asList = new HashSet<>(cachedDataList);
             asList.forEach(s -> {
                 if (!set.contains(s)) {
                     saveList.add(s);
                 }
             });
-            log.info("{}条数据，被过滤掉！", asList.size() - saveList.size());
+            log.info("{}条数据，被过滤掉！", cachedDataList.size() - saveList.size());
         }
         log.info("{}条数据，开始存储数据库！", saveList.size());
         service.saveBatch(saveList);

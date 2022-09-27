@@ -67,7 +67,7 @@ public class InvoiceRecordsController {
     private MedioHttpRequestHandler medioHttpRequestHandler;
 
     @GetMapping("/video")
-    public void getPaly(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    public void getPlay(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String url = "E:\\";
         Path path = Paths.get(url + "123.mp4");
         if (Files.exists(path)) {

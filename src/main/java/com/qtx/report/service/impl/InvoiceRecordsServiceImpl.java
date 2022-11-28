@@ -39,18 +39,14 @@ public class InvoiceRecordsServiceImpl extends ServiceImpl<InvoiceRecordsMapper,
     @Override
     public IPage<InvoiceRecordsVo> findPage(InvoiceRecordsDto dto) {
         return invoiceRecordsMapper.selectPageNew(new Page<>(dto.getNum(), dto.getSize()),
-                Wrappers.lambdaQuery(InvoiceRecords.class)
-                        .eq(BaseEntity::getDeleteFlag, "0")
+                Wrappers.lambdaQuery(InvoiceRecords.class).eq(BaseEntity::getDeleteFlag, "0")
                         .like(dto.getTicketCode() != null, InvoiceRecords::getTicketCode, dto.getTicketCode())
                         .like(dto.getTicketNumber() != null, InvoiceRecords::getTicketNumber, dto.getTicketNumber())
                         .like(dto.getProcessNumber() != null, InvoiceRecords::getProcessNumber, dto.getProcessNumber())
                         .like(StringUtils.isNotBlank(dto.getReimbursementPerson()),
-                                InvoiceRecords::getReimbursementPerson,
-                                dto.getReimbursementPerson())
-                        .between(dto.getStartTime() != null && dto.getEndTime() != null,
-                                InvoiceRecords::getBillingDate,
-                                dto.getStartTime(),
-                                dto.getEndTime()));
+                                InvoiceRecords::getReimbursementPerson, dto.getReimbursementPerson())
+                        .between(dto.getStartTime() != null && dto.getEndTime() != null, InvoiceRecords::getBillingDate,
+                                dto.getStartTime(), dto.getEndTime()));
     }
 
     @Override

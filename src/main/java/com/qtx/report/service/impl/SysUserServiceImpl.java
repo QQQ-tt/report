@@ -111,8 +111,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Override
     public IPage<SysUser> allPage(SysUserDto dto) {
         return page(new Page<>(dto.getNum(), dto.getSize()),
-                Wrappers.lambdaQuery(SysUser.class)
-                        .like(dto.getCard() != null, SysUser::getCard, dto.getCard())
+                Wrappers.lambdaQuery(SysUser.class).like(dto.getCard() != null, SysUser::getCard, dto.getCard())
                         .like(StringUtils.isNotBlank(dto.getName()), SysUser::getName, dto.getName()));
     }
 
@@ -125,7 +124,6 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
             throw new DateException(DataEnums.WRONG_PASSWORD);
         }
         return update(Wrappers.lambdaUpdate(SysUser.class)
-                .set(SysUser::getPassword, passwordEncoder.encode(user.getNewPassword()))
-                .eq(SysUser::getCard, s));
+                .set(SysUser::getPassword, passwordEncoder.encode(user.getNewPassword())).eq(SysUser::getCard, s));
     }
 }

@@ -17,8 +17,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author: QTX
- * @Since: 2022/8/30
+ * @author qtx
+ * @since 2022/8/30
  */
 @Data
 @Component
@@ -45,8 +45,8 @@ public class JwtUtils {
     public String generateToken(String subject) {
         //Create the Signature SecretKey
         final SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
-        final byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(Base64.getEncoder()
-                .encodeToString(getSecret().getBytes()));
+        final byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(
+                Base64.getEncoder().encodeToString(getSecret().getBytes()));
         final Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
 
         Map<String, Object> headerMap = new HashMap<>(10);
@@ -71,8 +71,8 @@ public class JwtUtils {
      * @return
      */
     public Claims parseToken(String token) {
-        final byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(Base64.getEncoder()
-                .encodeToString(getSecret().getBytes()));
+        final byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(
+                Base64.getEncoder().encodeToString(getSecret().getBytes()));
         return Jwts.parser().setSigningKey(apiKeySecretBytes).parseClaimsJws(token).getBody();
     }
 
